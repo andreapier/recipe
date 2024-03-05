@@ -1,0 +1,14 @@
+{
+    "navItems": {
+        "/": "Home",
+        "/tags": "Tag",
+        "/recipes": "Ricette"
+    },
+    "recipePage": {
+        "ingredients": "Ingredienti:",
+        "preparation": "Preparazione:"
+    },
+    "recipesPage": {
+        "goToRecipe": "Vai alla ricetta"
+    }
+}
