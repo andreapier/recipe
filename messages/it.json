@@ -1,12 +1,18 @@
 {
+    "confirmPopover": {
+        "cancel": "No",
+        "confirm": "Sì",
+        "sure": "Sei sicuro?"
+    },
     "navItems": {
         "/": "Home",
         "/tags": "Tag",
         "/recipes": "Ricette"
     },
-    "recipePage": {
+    "recipeForm": {
         "ingredients": "Ingredienti:",
-        "preparation": "Preparazione:"
+        "preparation": "Preparazione:",
+        "suggestedPeople": "Quantità suggerite per {people} persone"
     },
     "recipesPage": {
         "goToRecipe": "Vai alla ricetta"

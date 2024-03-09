@@ -1,36 +1,43 @@
 import { FC } from "react";
-import { Card, CardHeader, CardBody, CardFooter, Image } from "@nextui-org/react";
-import { Recipe } from "@/types/recipe";
-import { useFormatter, useTranslations } from "next-intl";
+import { Card, CardHeader, CardBody, Image, Divider } from "@nextui-org/react";
+import { RecipeHeader } from "@/types/recipe";
+import { useFormatter } from "next-intl";
 import { Link } from "@/navigation";
+import { PersonIcon } from "./icons";
 
 export interface RecipeCardProps {
-  recipe: Recipe;
+  recipe: RecipeHeader;
 }
 
 export const RecipeCard: FC<RecipeCardProps> = ({ recipe }) => {
   const format = useFormatter();
-  const t = useTranslations("recipesPage");
+
   const createdAt = format.dateTime(recipe.createdAt, {
     dateStyle: "short",
     timeStyle: "short",
   });
 
   return (
-    <Card className="py-4 h-[300px] w-[300px]">
-      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-        <h4 className="font-bold text-large">{recipe.name}</h4>
-        <p className="text-tiny uppercase font-bold">{recipe.description}</p>
-        <small className="text-default-500">{createdAt}</small>
-      </CardHeader>
-      <CardBody className="overflow-visible py-2 flex-row justify-center">
-        <Image alt={recipe.name} className="object-cover rounded-xl m-auto" src={recipe.img} width={200} />
-      </CardBody>
-      <CardFooter>
-        <Link href={`/recipes/${recipe.slug}`} className="text-tiny font-bold">
-          {t("goToRecipe")}
-        </Link>
-      </CardFooter>
-    </Card>
+    <Link href={`/recipes/${recipe.slug}`} className="text-tiny font-bold">
+      <Card className="py-1 w-[300px]">
+        <CardHeader className="pt-1 px-4 flex-col items-start">
+          <h4 className="font-bold text-large">{recipe.name}</h4>
+          <p className="text-tiny uppercase font-bold line-clamp-3 h-[48px]">{recipe.description}</p>
+          <div className="flex justify-between w-full items-center">
+            <div className="grow">
+              <small className="text-default-500">{createdAt}</small>
+            </div>
+            <div className="flex items-center">
+              <PersonIcon size={16} />
+              <small className="text-default-500"> x {recipe.people}</small>
+            </div>
+          </div>
+        </CardHeader>
+        <Divider />
+        <CardBody className="py-2 flex-row justify-center h-[165px]">
+          <Image alt={recipe.name} className="object-cover rounded-xl" isZoomed loading="lazy" src={recipe.img} height={112} />
+        </CardBody>
+      </Card>
+    </Link>
   );
 };

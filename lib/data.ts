@@ -1,4 +1,5 @@
 import { Recipe } from "@/types/recipe";
+import { cloneDeep } from "lodash";
 
 const recipes: Recipe[] = [
   {
@@ -11,11 +12,11 @@ const recipes: Recipe[] = [
     createdAt: new Date(),
     ingredients: [
       {
-        group: "Dough",
+        name: "Dough",
         ingredients: ["300 grams all-purpose flour", "5 grams instant yeast", "5 grams salt", "200 milliliters warm water", "15 milliliters olive oil"],
       },
       {
-        group: "Topping",
+        name: "Topping",
         ingredients: [
           "400 grams ripe tomatoes",
           "200 grams fresh mozzarella cheese",
@@ -27,7 +28,7 @@ const recipes: Recipe[] = [
     ],
     steps: [
       {
-        group: "Dough",
+        name: "Dough",
         steps: [
           "In a large mixing bowl, combine the all-purpose flour, instant yeast, and salt.",
           "Gradually add warm water while stirring until the dough comes together.",
@@ -36,7 +37,7 @@ const recipes: Recipe[] = [
         ],
       },
       {
-        group: "Topping",
+        name: "Topping",
         steps: [
           "Wash and dice the ripe tomatoes, then drain excess liquid.",
           "Tear the fresh mozzarella cheese into small pieces.",
@@ -52,7 +53,7 @@ const recipes: Recipe[] = [
         ],
       },
       {
-        group: "Serving",
+        name: "Serving",
         steps: ["Slice the Pizza Margherita into wedges using a pizza cutter or a sharp knife.", "Serve hot and enjoy!"],
       },
     ],
@@ -107,5 +108,25 @@ const recipes: Recipe[] = [
   },
 ];
 
-export const getRecipes = () => recipes;
-export const getRecipe = (slug: string) => recipes.find((x) => x.slug === slug);
+export const getRecipes = async (page: number = 1, perPage: number = 8) => {
+  "use server";
+
+  const tmp = [...recipes, ...recipes, ...recipes, ...recipes, ...recipes, ...recipes, ...recipes];
+
+  return {
+    total: tmp.length,
+    items: tmp
+      .filter((_, i) => i >= (page - 1) * perPage && i < page * perPage)
+      .map((x) => ({
+        id: Math.random().toString(),
+        name: x.name,
+        slug: x.slug,
+        description: x.description,
+        img: x.img,
+        createdAt: x.createdAt,
+        people: x.people,
+        tags: x.tags,
+      })),
+  };
+};
+export const getRecipe = (slug: string) => cloneDeep(recipes.find((x) => x.slug === slug));

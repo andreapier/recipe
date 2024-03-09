@@ -1,18 +1,17 @@
-import { RecipeCard } from "@/components/recipe-card";
 import { getRecipes } from "@/lib/data";
+import RecipesList from "@/components/recipes-list";
 
-const RecipesPage = async () => {
-  const recipes = await getRecipes();
+const RecipesPage = async ({ searchParams }: { params: { slug: string }; searchParams: { [key: string]: string | undefined } }) => {
+  const pageParam = searchParams?.page;
+  const perPageParam = searchParams?.perPage;
 
-  return (
-    <section className="flex items-center justify-center gap-4 py-8 md:py-10">
-      {recipes.map((recipe) => (
-        <div className="flex gap-3" key={recipe.id}>
-          <RecipeCard recipe={recipe} />
-        </div>
-      ))}
-    </section>
-  );
+  let page = (pageParam && parseInt(pageParam)) || undefined;
+  let perPage = (perPageParam && parseInt(perPageParam)) || undefined;
+  let recipes = await getRecipes(page, perPage);
+
+  console.log("Page", page, "Got recipes", recipes.items);
+
+  return <RecipesList recipes={recipes.items} total={recipes.total} />;
 };
 
 export default RecipesPage;

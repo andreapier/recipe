@@ -1,24 +1,27 @@
 import { Tag } from "./tag";
 
-export type Recipe = {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  img?: string;
-  createdAt: Date;
-  ingredients: Ingredient[];
-  steps: Step[];
-  tags: Tag[];
-  people: Number;
-};
+export class RecipeHeader {
+  public id = "";
+  public slug = "";
+  public name = "";
+  public description = "";
+  public img?: string;
+  public createdAt = new Date();
+  public tags = new Array<Tag>();
+  public people = 4;
+}
 
-export type Ingredient = {
-  group: string;
-  ingredients: string[];
-};
+export class Recipe extends RecipeHeader {
+  public ingredients = new Array<IngredientsGroup>();
+  public steps = new Array<StepsGroup>();
+}
 
-export type Step = {
-  group: string;
-  steps: string[];
-};
+export class IngredientsGroup {
+  public name = "";
+  public ingredients = new Array<string>();
+}
+
+export class StepsGroup {
+  public name = "";
+  public steps = new Array<string>();
+}
