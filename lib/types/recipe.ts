@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export interface Recipe {
-  _id: Types.ObjectId;
+  _id: Types.ObjectId | string;
   slug: string;
   name: string;
   description: string;

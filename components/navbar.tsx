@@ -5,7 +5,7 @@ import { Input } from "@nextui-org/react";
 import { link as linkStyles } from "@nextui-org/react";
 import { siteConfig } from "@/config/site";
 //import NextLink from "next/link";
-import { Link as NextLink } from "@/navigation";
+import { Link as NextLink } from "@/lib/intl/navigation";
 import clsx from "clsx";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, SearchIcon } from "@/components/icons";

@@ -96,7 +96,7 @@ if (!ribs) {
 
 let gelatoStracciatella = db.recipes.findOne({ _id: "gelato-stracciatella" });
 if (!gelatoStracciatella) {
-  console.log("sgelato-stracciatella NOT FOUND, inserting");
+  console.log("gelato-stracciatella NOT FOUND, inserting");
   gelatoStracciatella = {
     _id: "gelato-stracciatella",
     slug: "gelato-stracciatella",

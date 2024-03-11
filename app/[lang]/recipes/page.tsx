@@ -7,7 +7,6 @@ const RecipesPage = async ({ searchParams }: { params: { slug: string }; searchP
   const page = (pageParam && parseInt(pageParam)) || undefined;
   const perPage = (perPageParam && parseInt(perPageParam)) || undefined;
   const recipes = await getRecipes(page, perPage);
-  console.log(recipes.items);
 
   return <RecipesList recipes={recipes.items} total={recipes.total} />;
 };

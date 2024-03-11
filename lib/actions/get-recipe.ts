@@ -6,7 +6,6 @@ export const getRecipe = async (slug: string) => {
   "use server";
 
   try {
-    console.log("Fetching recipe by slug", slug);
     connectToDb();
     return (await RecipeModel.findOne({ slug }).lean()) as Recipe;
   } catch (e) {

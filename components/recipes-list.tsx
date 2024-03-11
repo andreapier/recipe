@@ -4,7 +4,7 @@ import { RecipeCard } from "@/components/recipe-card";
 import { Pagination } from "@nextui-org/react";
 import styles from "./recipes-list.module.css";
 import { PlusIcon } from "@/components/icons";
-import { Link, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/lib/intl/navigation";
 import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { Recipe } from "@/lib/types/recipe";

@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { FC, useState } from "react";
 import { AddRemoveInput } from "./add-remove-input";
 import { cloneDeep } from "lodash";
-import { useRouter } from "@/navigation";
+import { useRouter } from "@/lib/intl/navigation";
 import { ConfirmPopover } from "./confirm-popover";
 
 export interface RecipeFormProps {

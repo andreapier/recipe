@@ -1,5 +1,3 @@
-export type NavItemKeys = "/" | "/tags" | "/recipes";
-
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
