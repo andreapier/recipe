@@ -1,5 +1,7 @@
+import { Types } from "mongoose";
+
 export type Tag = {
-  id: string;
+  _id: Types.ObjectId;
   name: string;
   parentId?: string;
 };

@@ -1,6 +1,6 @@
 import { RecipeForm } from "@/components/recipe-form";
 import { saveRecipe } from "@/lib/actions/save-recipe";
-import { IngredientsGroup, Recipe, StepsGroup } from "@/types/recipe";
+import { RecipeItemsGroup, Recipe, StepsGroup } from "@/lib/types/recipe";
 import { FC } from "react";
 
 const NewRecipePage: FC = async () => {

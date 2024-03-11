@@ -1,7 +1,8 @@
 import { RecipeForm } from "@/components/recipe-form";
 import { deleteRecipe } from "@/lib/actions/delete-recipe";
+import { getRecipe } from "@/lib/actions/get-recipe";
 import { saveRecipe } from "@/lib/actions/save-recipe";
-import { getRecipe } from "@/lib/data";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 
 export interface RecipePageProps {
@@ -13,7 +14,7 @@ const SingleRecipePage: FC<RecipePageProps> = async ({ params }) => {
 
   const recipe = await getRecipe(slug);
   if (!recipe) {
-    throw new Error("Not found");
+    return notFound();
   }
 
   return <RecipeForm recipe={recipe} initialRecipe={recipe} onDelete={deleteRecipe} onSave={saveRecipe} />;

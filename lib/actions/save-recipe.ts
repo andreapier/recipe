@@ -1,19 +1,23 @@
 import { notFound } from "next/navigation";
-import { getRecipes } from "../data";
 import { revalidatePath } from "next/cache";
-import { Recipe } from "@/types/recipe";
+import { Recipe } from "@/lib/types/recipe";
+import { connectToDb } from "../db/connect-to-db";
+import { RecipeModel } from "../db/recipe-schema";
 
 export async function saveRecipe(recipe: Recipe) {
   "use server";
 
-  const recipes = await getRecipes();
-  const index = recipes.findIndex((x) => x.id === recipe.id);
+  try {
+    connectToDb();
+    const res = await RecipeModel.replaceOne(recipe);
+    if (!res) {
+      return notFound();
+    }
 
-  if (index < 0) {
-    return notFound();
+    revalidatePath("/recipes");
+    revalidatePath(`/recipes/${recipe.slug}`);
+  } catch (e) {
+    console.error(e);
+    throw new Error(`Failed to replace recipe: ${recipe}`);
   }
-
-  recipes.splice(index, 1, recipe);
-  revalidatePath("/recipes");
-  revalidatePath(`/recipes/${recipe.slug}`);
 }

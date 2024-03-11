@@ -1,17 +1,21 @@
 import { notFound } from "next/navigation";
-import { getRecipes } from "../data";
 import { revalidatePath } from "next/cache";
+import { connectToDb } from "../db/connect-to-db";
+import { RecipeModel } from "../db/recipe-schema";
 
-export async function deleteRecipe(recipeId: string) {
+export async function deleteRecipe(id: string) {
   "use server";
 
-  const recipes = await getRecipes();
-  const index = recipes.findIndex((x) => x.id === recipeId);
+  try {
+    connectToDb();
+    const res = await RecipeModel.findByIdAndDelete(id);
+    if (!res) {
+      return notFound();
+    }
 
-  if (index < 0) {
-    return notFound();
+    revalidatePath("/recipes");
+  } catch (e) {
+    console.error(e);
+    throw new Error(`Failed to delete recipe by id: ${id}`);
   }
-
-  recipes.splice(index, 1);
-  revalidatePath("/recipes");
 }

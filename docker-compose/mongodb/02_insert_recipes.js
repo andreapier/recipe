@@ -1,9 +1,10 @@
-import { Recipe } from "@/types/recipe";
-import { cloneDeep } from "lodash";
+console.log("02_insert_recipes.js STARTING");
 
-const recipes: Recipe[] = [
-  {
-    id: "pizza-margherita",
+let pizzaMargherita = db.recipes.findOne({ _id: "pizza-margherita" });
+if (!pizzaMargherita) {
+  console.log("pizza-margherita NOT FOUND, inserting");
+  pizzaMargherita = {
+    _id: "pizza-margherita",
     slug: "pizza-margherita",
     name: "Pizza Margherita",
     description: "This recipe yields one delicious Pizza Margherita, perfect for sharing with family and friends.",
@@ -13,23 +14,17 @@ const recipes: Recipe[] = [
     ingredients: [
       {
         name: "Dough",
-        ingredients: ["300 grams all-purpose flour", "5 grams instant yeast", "5 grams salt", "200 milliliters warm water", "15 milliliters olive oil"],
+        items: ["300 grams all-purpose flour", "5 grams instant yeast", "5 grams salt", "200 milliliters warm water", "15 milliliters olive oil"],
       },
       {
         name: "Topping",
-        ingredients: [
-          "400 grams ripe tomatoes",
-          "200 grams fresh mozzarella cheese",
-          "15 milliliters olive oil",
-          "5 grams salt",
-          "A handful of fresh basil leaves",
-        ],
+        items: ["400 grams ripe tomatoes", "200 grams fresh mozzarella cheese", "15 milliliters olive oil", "5 grams salt", "A handful of fresh basil leaves"],
       },
     ],
     steps: [
       {
         name: "Dough",
-        steps: [
+        items: [
           "In a large mixing bowl, combine the all-purpose flour, instant yeast, and salt.",
           "Gradually add warm water while stirring until the dough comes together.",
           "Knead the dough on a floured surface for about 5-7 minutes until it becomes smooth and elastic.",
@@ -38,7 +33,7 @@ const recipes: Recipe[] = [
       },
       {
         name: "Topping",
-        steps: [
+        items: [
           "Wash and dice the ripe tomatoes, then drain excess liquid.",
           "Tear the fresh mozzarella cheese into small pieces.",
           "Wash and dry the fresh basil leaves.",
@@ -54,13 +49,20 @@ const recipes: Recipe[] = [
       },
       {
         name: "Serving",
-        steps: ["Slice the Pizza Margherita into wedges using a pizza cutter or a sharp knife.", "Serve hot and enjoy!"],
+        items: ["Slice the Pizza Margherita into wedges using a pizza cutter or a sharp knife.", "Serve hot and enjoy!"],
       },
     ],
     tags: [],
-  },
-  {
-    id: "spaghetti-carbonara",
+  };
+  db.recipes.insertOne(pizzaMargherita);
+  console.log("pizza-margherita NOT FOUND, inserted");
+}
+
+let spaghettiCarbonara = db.recipes.findOne({ _id: "spaghetti-carbonara" });
+if (!spaghettiCarbonara) {
+  console.log("spaghetti-carbonara NOT FOUND, inserting");
+  spaghettiCarbonara = {
+    _id: "spaghetti-carbonara",
     slug: "spaghetti-carbonara",
     name: "Spaghetti alla Carbonara",
     description: "Pasta e uova!",
@@ -70,9 +72,15 @@ const recipes: Recipe[] = [
     ingredients: [],
     steps: [],
     tags: [],
-  },
-  {
-    id: "ribs",
+  };
+  db.recipes.insertOne(spaghettiCarbonara);
+}
+
+let ribs = db.recipes.findOne({ _id: "ribs" });
+if (!ribs) {
+  console.log("ribs NOT FOUND, inserting");
+  ribs = {
+    _id: "ribs",
     slug: "ribs",
     name: "Ribs",
     description: "Costine in salsa barbecue",
@@ -82,9 +90,15 @@ const recipes: Recipe[] = [
     ingredients: [],
     steps: [],
     tags: [],
-  },
-  {
-    id: "gelato-stracciatella",
+  };
+  db.recipes.insertOne(ribs);
+}
+
+let gelatoStracciatella = db.recipes.findOne({ _id: "gelato-stracciatella" });
+if (!gelatoStracciatella) {
+  console.log("sgelato-stracciatella NOT FOUND, inserting");
+  gelatoStracciatella = {
+    _id: "gelato-stracciatella",
     slug: "gelato-stracciatella",
     name: "Gelato alla stracciatella",
     description: "Fare il gelato in casa è facile",
@@ -94,9 +108,15 @@ const recipes: Recipe[] = [
     ingredients: [],
     steps: [],
     tags: [],
-  },
-  {
-    id: "no-img",
+  };
+  db.recipes.insertOne(gelatoStracciatella);
+}
+
+let noImg = db.recipes.findOne({ _id: "no-img" });
+if (!noImg) {
+  console.log("no-img NOT FOUND, inserting");
+  noImg = {
+    _id: "no-img",
     slug: "no-img",
     name: "Senza immagine",
     description: "Verificare come viene renderizzata",
@@ -105,28 +125,8 @@ const recipes: Recipe[] = [
     ingredients: [],
     steps: [],
     tags: [],
-  },
-];
-
-export const getRecipes = async (page: number = 1, perPage: number = 8) => {
-  "use server";
-
-  const tmp = [...recipes, ...recipes, ...recipes, ...recipes, ...recipes, ...recipes, ...recipes];
-
-  return {
-    total: tmp.length,
-    items: tmp
-      .filter((_, i) => i >= (page - 1) * perPage && i < page * perPage)
-      .map((x) => ({
-        id: Math.random().toString(),
-        name: x.name,
-        slug: x.slug,
-        description: x.description,
-        img: x.img,
-        createdAt: x.createdAt,
-        people: x.people,
-        tags: x.tags,
-      })),
   };
-};
-export const getRecipe = (slug: string) => cloneDeep(recipes.find((x) => x.slug === slug));
+  db.recipes.insertOne(noImg);
+}
+
+console.log("02_insert_recipes.js COMPLETED");

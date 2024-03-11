@@ -6,18 +6,19 @@ import styles from "./recipes-list.module.css";
 import { PlusIcon } from "@/components/icons";
 import { Link, useRouter } from "@/navigation";
 import { useSearchParams } from "next/navigation";
-import { RecipeHeader } from "@/types/recipe";
 import { FC } from "react";
+import { Recipe } from "@/lib/types/recipe";
 
 export interface RecipesListProps {
-  recipes: Array<RecipeHeader>;
+  recipes: Array<Recipe>;
   total: number;
 }
 
-const RecipesList: FC<RecipesListProps> = (props) => {
+export const RecipesList: FC<RecipesListProps> = (props) => {
   const { recipes, total } = props;
   const q = useSearchParams();
   const page = parseInt(q.get("page") || "1");
+  const perPage = parseInt(q.get("perPage") || "8");
   const router = useRouter();
   const totalPages = Math.ceil(total / perPage);
 
@@ -29,7 +30,7 @@ const RecipesList: FC<RecipesListProps> = (props) => {
     <section className="flex flex-col items-center">
       <div className={styles.recipes + " flex flex-wrap items-center gap-3 overflow-y-scroll"}>
         {recipes.map((recipe) => (
-          <div className="flex gap-3" key={recipe.id}>
+          <div className="flex gap-3" key={recipe.slug}>
             <RecipeCard recipe={recipe} />
           </div>
         ))}
@@ -44,5 +45,3 @@ const RecipesList: FC<RecipesListProps> = (props) => {
     </section>
   );
 };
-
-export default RecipesList;

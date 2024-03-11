@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Card, CardHeader, CardBody, Image, Divider } from "@nextui-org/react";
-import { RecipeHeader } from "@/types/recipe";
+import { RecipeHeader } from "@/lib/types/recipe";
 import { useFormatter } from "next-intl";
 import { Link } from "@/navigation";
 import { PersonIcon } from "./icons";
